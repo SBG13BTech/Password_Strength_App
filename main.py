@@ -1,10 +1,10 @@
 #This is a password strength checker app.
 
-import tkinter as tk
+import tkinter as tk   #Tkinter Module for GUI 
 
-root=tk.Tk()
+root=tk.Tk() #Main window
 root.title("Password Strength Checker")
-root.geometry("400x600")
+root.geometry("400x600") #Size of the main window
 
 L1=tk.Label(root,text="Welcome to the Password Strength Checker App")
 L1.pack(pady=10)
@@ -46,14 +46,14 @@ def Check(p):
     def common(p):
             with open("Common_Passwords.txt") as f:
                 for line in f:
-                    if p==line.strip():
+                    if p==line.strip():  # strip() removes \n character from the end of every word
                         return True
                 return False
     
     
     def repeat(p):
         for i in range(0,len(p)-2):
-             if p[i]==p[i+1]==p[i+2]:
+             if p[i]==p[i+1]==p[i+2]:  #checks whether three consecutive characters are same
                 return True
         return False
     
@@ -61,14 +61,14 @@ def Check(p):
     
     def sequence(p):
         for i in range(0,len(p)-3):
-            if (ord(p[i].lower())+1==ord(p[i+1].lower())==ord(p[i+2].lower())-1==ord(p[i+3].lower())-2):
+            if (ord(p[i].lower())+1==ord(p[i+1].lower())==ord(p[i+2].lower())-1==ord(p[i+3].lower())-2): #ord() function gives ASCII value of the character
                 return True
         return False
     
 
 
     def Checker(p):
-            score=0
+            score=0 #scoring system out of 5
             uc=0
             lc=0
             numbers=0
@@ -138,4 +138,4 @@ b1=tk.Button(root,text="Check Strength",command=lambda:Check(E1.get()))
 b1.pack(pady=15)
 b2=tk.Button(root,text='Reset',command=reset)
 b2.pack()
-root.mainloop()
+root.mainloop() #keeps the window open for user interactions
