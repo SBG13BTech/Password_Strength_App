@@ -39,71 +39,72 @@ def reset():
     L7.config(text='')
 
 
+def common(p):
+        with open("Common_Passwords.txt") as f:
+            for line in f:
+                if p==line.strip():  # strip() removes \n character from the end of every word
+                    return True
+            return False
+    
+    
+def repeat(p):
+    for i in range(0,len(p)-2):
+        if p[i]==p[i+1]==p[i+2]:  #checks whether three consecutive characters are same
+            return True
+    return False
+    
+    
+    
+def sequence(p):
+    for i in range(0,len(p)-3):
+        if (ord(p[i].lower())+1==ord(p[i+1].lower())==ord(p[i+2].lower())-1==ord(p[i+3].lower())-2): #ord() function gives ASCII value of the character
+            return True
+    return False
+    
+
+
+def Checker(p):
+        score=0 #scoring system out of 5
+        uc=0
+        lc=0
+        numbers=0
+        specialc=0
+
+        if len(p)>=12:
+            score+=1
+
+        for i in p:
+            
+            if i.isupper():
+                uc+=1
+            
+            elif i.islower():
+                lc+=1
+            
+            elif i.isdigit():
+                numbers+=1
+            
+            elif i in "!@#$%^&*()_+-{[]}':;?/>.<,~`":
+                specialc+=1
+            
+        if uc>=3:
+            score+=1
+            
+        if lc>=3:
+            score+=1
+            
+        if numbers>=3:
+            score+=1
+            
+        if specialc>=3:
+            score+=1
+            
+        return score
 
 def Check(p):
     
     
-    def common(p):
-            with open("Common_Passwords.txt") as f:
-                for line in f:
-                    if p==line.strip():  # strip() removes \n character from the end of every word
-                        return True
-                return False
     
-    
-    def repeat(p):
-        for i in range(0,len(p)-2):
-             if p[i]==p[i+1]==p[i+2]:  #checks whether three consecutive characters are same
-                return True
-        return False
-    
-    
-    
-    def sequence(p):
-        for i in range(0,len(p)-3):
-            if (ord(p[i].lower())+1==ord(p[i+1].lower())==ord(p[i+2].lower())-1==ord(p[i+3].lower())-2): #ord() function gives ASCII value of the character
-                return True
-        return False
-    
-
-
-    def Checker(p):
-            score=0 #scoring system out of 5
-            uc=0
-            lc=0
-            numbers=0
-            specialc=0
-
-            if len(p)>=12:
-                score+=1
-
-            for i in p:
-            
-                if i.isupper():
-                    uc+=1
-            
-                elif i.islower():
-                    lc+=1
-            
-                elif i.isdigit():
-                    numbers+=1
-            
-                elif i in "!@#$%^&*()_+-{[]}':;?/>.<,~`":
-                    specialc+=1
-            
-            if uc>=3:
-                score+=1
-            
-            if lc>=3:
-                score+=1
-            
-            if numbers>=3:
-                score+=1
-            
-            if specialc>=3:
-                score+=1
-            
-            return score
     if len(p)<12:
         L3.config(text="\nThe password is too short.\nIt should atleast be 12 characters long.")
     
